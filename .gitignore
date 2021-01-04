@@ -1,0 +1,8 @@
+
+.idea/
+
+python/__pycache__/
+
+venv/Lib/site-packages/__pycache__/
+
+venv/
