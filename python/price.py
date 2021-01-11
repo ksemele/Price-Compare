@@ -39,7 +39,7 @@ def compare_price_per_unit(items):
         elif each.price_per_unit == max_price:
             max_item = each
     print(f'\033[31mmin\033[00m item: {min_item}')
-    print(f'\033[31mmax\033[00m item: {max_item}')
+    print(f'\033[36mmax\033[00m item: {max_item}')
     #     diff = item_b.price_per_unit / (item_a.price_per_unit / 100) - 100  # todo make intelligent diff
     #     print(f"A less than B on {round(diff, 2)}%")
 
@@ -78,7 +78,13 @@ if __name__ == '__main__':
     cur.execute("""CREATE TABLE IF NOT EXISTS stores(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
-            adress TEXT
+            address TEXT
+            );""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS prices(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            item UUID_ITEM,
+            store UUID_STORE,
+            price INTEGER
             );""")
     con.commit()
 
