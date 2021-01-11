@@ -6,3 +6,5 @@ python/__pycache__/
 venv/Lib/site-packages/__pycache__/
 
 venv/
+
+.DS_Store
