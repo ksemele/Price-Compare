@@ -2,7 +2,8 @@
 # window = Window(400, 300,)  # "PriceCompare v0.2")
 # window.run()
 import sqlite3
-import os
+import datetime
+
 
 class Item:
     name = ''
@@ -26,6 +27,12 @@ class Item:
                f"units: {self.units}, " \
                f"price_per_unit: {self.price_per_unit}"
 
+    def save(self):
+        cur.execute("""INSERT INTO goods (name, units) VALUES(?, ?);""", (self.name, self.units))
+
+    # def save_to_sql(self):
+    #     cur.execute('INSERT INTO card (number, pin) VALUES (?, ?);', (self.card_num, self.pin))
+    #     con.commit()
 
 def compare_price_per_unit(items):
     min_price = (min(x.price_per_unit for x in items))
@@ -65,16 +72,14 @@ def barcode():  # todo testing working barcode scan
     print('QR codes: %s' % codes)
 
 
-def save(items):
-    import datetime
-
+def save_items(items, cur):
     a = datetime.datetime.today().strftime("%Y%m%d")
-    print(a)  # '20170405'
-
+    # print(a)  # '20170405'
     today = datetime.datetime.today()
-    print(today.strftime("%m/%d/%Y"))  # '04/05/2017'
-    print(today.strftime("%Y-%m-%d-%H.%M.%S"))  # 2017-04-05-00.18.00
-
+    print(today.strftime("%d/%m/%Y %H:%M:%S"))  # 2017-04-05-00.18.00
+    for each in items:
+        each.print()
+        each.save()
 
 if __name__ == '__main__':
     # SQLite part -> to module?
@@ -121,7 +126,7 @@ if __name__ == '__main__':
     compare_price_per_unit(items)
     user_input = input('Save result? Y(es) / N(o): ')
     if user_input.lower() == 'y':  # todo do save()
-        save(items)
+        save_items(items, cur)
         print('Ok, save. Which store is it?')
     if user_input.lower() == '2':  # todo test input to barcode scan
         barcode()
