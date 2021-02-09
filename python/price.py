@@ -89,7 +89,9 @@ if __name__ == '__main__':
     con.commit()
 
     items = []
-    print('input price mass [name] or empty line for finish input')
+    print('input price mass [name]\n'
+          'or empty line for finish input:\n'
+          'example: 100 10 bread')
     while True:
         price_units = input("item price mass [name]: ")
         if len(price_units.split()) >= 2:
