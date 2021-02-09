@@ -2,7 +2,7 @@
 # window = Window(400, 300,)  # "PriceCompare v0.2")
 # window.run()
 import sqlite3
-
+import os
 
 class Item:
     name = ''
@@ -65,6 +65,17 @@ def barcode():  # todo testing working barcode scan
     print('QR codes: %s' % codes)
 
 
+def save(items):
+    import datetime
+
+    a = datetime.datetime.today().strftime("%Y%m%d")
+    print(a)  # '20170405'
+
+    today = datetime.datetime.today()
+    print(today.strftime("%m/%d/%Y"))  # '04/05/2017'
+    print(today.strftime("%Y-%m-%d-%H.%M.%S"))  # 2017-04-05-00.18.00
+
+
 if __name__ == '__main__':
     # SQLite part -> to module?
     con = sqlite3.connect('goods.db')
@@ -110,7 +121,7 @@ if __name__ == '__main__':
     compare_price_per_unit(items)
     user_input = input('Save result? Y(es) / N(o): ')
     if user_input.lower() == 'y':  # todo do save()
-        # save()
+        save(items)
         print('Ok, save. Which store is it?')
     if user_input.lower() == '2':  # todo test input to barcode scan
         barcode()
